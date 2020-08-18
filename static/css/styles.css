@@ -41,6 +41,36 @@
 }
 
 
+/* World */
+
+.card-links {
+    font-size: 14px;
+    transition: all 0.15s ease-in-out;
+    -moz-transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    -o-transition: all 0.15s ease-in-out;
+}
+
+.card-edit {
+    padding-left: 3px;
+    color: #297055;
+}
+
+.card-edit:hover {
+    color: #5cd1a5;
+    text-decoration: none;
+}
+
+.card-delete {
+    color: #c6382b;
+}
+
+.card-delete:hover {
+    color: #ec1703;
+    text-decoration: none;
+}
+
+
 /* Fonts */
 
 .headliner-text {
