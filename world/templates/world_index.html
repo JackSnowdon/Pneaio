@@ -8,4 +8,20 @@
     </div>
 </section>
 
+<section class="cards">
+    <div class="row">
+        <div class="col-4">
+            <a href="{% url 'create_card' %}" role="button" class="btn btn-success mb-1" aria-disabled="false">Create Card</a>
+            <h2>Cards:</h2>
+        </div>
+        <div class="col-8">
+            {% for card in cards %}
+            <div class="col-2">
+                <p>{{ card.name }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
 {% endblock %}

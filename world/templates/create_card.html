@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %} {% block page_title %} PNEAIO | Create Card {% endblock %} {% block content %}
+
+<section class="button-nav">
+    <div class="row mb-5">
+        <div class="col-12">
+            <a href="{% url 'world_index' %}" role="button" class="btn btn-warning" aria-disabled="false">Back</a>
+        </div>
+    </div>
+</section>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h1>New Card</h1>
+    </div>
+</div>
+
+<form role="form" method="post" id="new_card_form" action="{% url 'create_card' %}">
+    <div class="form-group body-text">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-8 mb-0">
+                {{ card_form.name|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {{ card_form.level|as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+                {{ card_form.attack|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {{ card_form.defense|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {{ card_form.speed|as_crispy_field }}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12 text-center">
+                <input class="btn btn-success" id="submit_card" name="commit" type="submit" value="Create Card">
+            </div>
+        </div>
+        <br>
+    </div>
+</form>
+
+
+{% endblock %}
