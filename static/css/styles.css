@@ -88,6 +88,18 @@
     font-weight: 300;
 }
 
+.star-chip {
+    color: #e2b14b;
+    transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
+}
+
+.star-chip:hover {
+    color: #f1ba42;
+}
+
 
 /* Fonts */
 

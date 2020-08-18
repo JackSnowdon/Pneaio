@@ -10,7 +10,11 @@
 
 <div class="row">
     <div class="col-12 text-center">
-        <h3>{{ this_card }}<span class="small"> Level: {{ this_card.level }}</span></h1>
+        <h3>{{ this_card }}</h3>
+        <div class="star-row mb-2">
+            {% for star in star_levels %}
+            <i class="fas fa-star star-chip fa-2x"></i>{% endfor %}
+        </div>
     </div>
 </div>
 

@@ -32,8 +32,15 @@ def create_card(request):
 @login_required
 def view_card(request, pk):
     this_card = get_object_or_404(Card, pk=pk)
-    return render(request, "view_card.html", {"this_card": this_card})
+    star_levels = list(range(0, this_card.level))
+    return render(request, "view_card.html", {"this_card": this_card, "star_levels": star_levels})
 
+
+@login_required
+def view_all_cards(request):
+    cards = Card.objects.order_by('-id')
+    return render(request, "view_all_cards.html", {"cards": cards})
+    
 
 @login_required
 def edit_card(request, pk):

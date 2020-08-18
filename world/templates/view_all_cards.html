@@ -1,9 +1,17 @@
-{% extends 'base.html' %} {% load static %} {% block page_title %} PNEAIO | World {% endblock %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block page_title %} PNEAIO | All Cards {% endblock %} {% block content %}
+
+<section class="button-nav">
+    <div class="row mb-5">
+        <div class="col-12">
+            <a href="{% url 'world_index' %}" role="button" class="btn btn-warning" aria-disabled="false">Back</a>
+        </div>
+    </div>
+</section>
 
 <section class="header">
     <div class="row mb-5">
         <div class="col-12 text-center">
-            <h1 class="headliner-text">World</h1>
+            <h1 class="headliner-text">All Cards</h1>
         </div>
     </div>
 </section>
@@ -12,7 +20,7 @@
     <div class="row">
         <div class="col-4">
             <a href="{% url 'create_card' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Create Card</a>
-            <h4>Your Last 5 Cards:</h4>
+            <h4>Cards:</h4>
             <ul>
                 {% for card in cards %}
                 <li><a href="{% url 'view_card' card.id %}" class="card-links single-card">{{ card.name }}</a> <span class="small">level {{ card.level }}</span><a href="{% url 'edit_card' card.id %}" class="card-links card-edit"><i class="far fa-edit"></i></a>
@@ -20,7 +28,6 @@
                 </li>
                 {% endfor %}
             </ul>
-            <a href="{% url 'view_all_cards' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">All Cards</a>
         </div>
     </div>
 </section>
