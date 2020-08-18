@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %} {% block page_title %} PNEAIO | {{ this_card }} {% endblock %} {% block content %}
+
+<section class="button-nav">
+    <div class="row mb-5">
+        <div class="col-12">
+            <a href="{% url 'world_index' %}" role="button" class="btn btn-warning" aria-disabled="false">Back</a>
+        </div>
+    </div>
+</section>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h3>{{ this_card }}<span class="small"> Level: {{ this_card.level }}</span></h1>
+    </div>
+</div>
+
+<section class="stats">
+    <div class="row text-center">
+        <div class="offset-md-3 col-md-2 mb-0">
+            <h5 class="card-stat">{{ this_card.attack }} Atk</h5>
+        </div>
+        <div class="col-md-2 mb-0">
+            <h5 class="card-stat">{{ this_card.defense }} Def</h5>
+        </div>
+        <div class="col-md-2 mb-0">
+            <h5 class="card-stat">{{ this_card.speed }} Spd</h5>
+        </div>
+    </div>
+    <br>
+</section>
+
+
+{% endblock %}

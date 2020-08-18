@@ -8,7 +8,8 @@ from .forms import *
 
 @login_required
 def world_index(request):
-    cards = Card.objects.order_by('-id')[:5]
+    profile = request.user.profile
+    cards = Card.objects.filter(created_by=profile).order_by('-id')[:5]
     return render(request, "world_index.html", {"cards": cards})
 
 
@@ -26,6 +27,12 @@ def create_card(request):
     else:
         card_form = NewCardForm()
     return render(request, "create_card.html", {"card_form": card_form})
+
+
+@login_required
+def view_card(request, pk):
+    this_card = get_object_or_404(Card, pk=pk)
+    return render(request, "view_card.html", {"this_card": this_card})
 
 
 @login_required

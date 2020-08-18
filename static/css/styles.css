@@ -43,12 +43,25 @@
 
 /* World */
 
+
+/* Cards */
+
 .card-links {
     font-size: 14px;
     transition: all 0.15s ease-in-out;
     -moz-transition: all 0.15s ease-in-out;
     -webkit-transition: all 0.15s ease-in-out;
     -o-transition: all 0.15s ease-in-out;
+}
+
+.single-card {
+    font-size: 18px;
+    color: black;
+}
+
+.single-card:hover {
+    color: #39a70e;
+    text-decoration: none;
 }
 
 .card-edit {
@@ -68,6 +81,11 @@
 .card-delete:hover {
     color: #ec1703;
     text-decoration: none;
+}
+
+.card-stat {
+    font-size: 22px;
+    font-weight: 300;
 }
 
 
