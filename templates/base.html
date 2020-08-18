@@ -32,6 +32,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'world_index' %}">World</a>
+                </li>
                 <!--- Below LI displays active user logged in -->
                 <li class="nav-item logged-in">Logged in as: <span class="capitalize">{{user}}</span></li>
                 {% else %}

@@ -12,11 +12,11 @@
 /* Navbar */
 
 .nav-bg {
-    background-color: #292038;
+    background-color: #171516;
 }
 
 .nav-bg a {
-    color: #9E999B;
+    color: #c2bcbe;
     transition: all 0.35s ease-in-out;
     -moz-transition: all 0.35s ease-in-out;
     -webkit-transition: all 0.35s ease-in-out;
