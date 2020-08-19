@@ -6,11 +6,15 @@ from .forms import *
 
 # Create your views here.
 
+# Cards
+
+
 @login_required
 def world_index(request):
     profile = request.user.profile
     cards = Card.objects.filter(created_by=profile).order_by('-id')[:5]
-    return render(request, "world_index.html", {"cards": cards})
+    decks = Deck.objects.filter(owned_by=profile).order_by('-id')[:5]
+    return render(request, "world_index.html", {"cards": cards, "decks": decks})
 
 
 @login_required
@@ -89,3 +93,20 @@ def card_limiter(r, card):
     else:
         messages.error(r, f"Point Total ({point_total}) Exceeds Limit ({point_limit})", extra_tags="alert")
         return False
+
+
+# Deck
+
+@login_required
+def create_deck(request):
+    if request.method == "POST":
+        deck_form = NewDeckForm(request.POST)
+        if deck_form.is_valid():
+            form = deck_form.save(commit=False)
+            form.owned_by = request.user.profile
+            form.save()
+            messages.error(request, "Created {0}".format(form.name), extra_tags="alert")
+            return redirect("world_index")    
+    else:
+        deck_form = NewDeckForm()
+    return render(request, "create_deck.html", {"deck_form": deck_form})

@@ -8,4 +8,5 @@ urlpatterns = [
     path('view_all_cards', view_all_cards, name="view_all_cards"),
     path(r'edit_card/<int:pk>', edit_card, name="edit_card"),
     path(r'delete_card/<int:pk>', delete_card, name="delete_card"),
+    path('create_deck/', create_deck, name="create_deck"),
 ]

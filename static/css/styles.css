@@ -101,6 +101,14 @@
 }
 
 
+/* Decks */
+
+.deck-list-item {
+    font-size: 21px;
+    font-weight: 700;
+}
+
+
 /* Fonts */
 
 .headliner-text {
