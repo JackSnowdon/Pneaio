@@ -118,6 +118,20 @@
     text-decoration: none;
 }
 
+.card-deck-table {
+    background-color: #d1eff3;
+}
+
+
+/* Class Helpers */
+
+tr {
+    transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
+}
+
 
 /* Fonts */
 
