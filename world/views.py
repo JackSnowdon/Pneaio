@@ -147,3 +147,11 @@ def add_single_card(request, pk):
         add_form = AddCardToDeck()
     return render(request, "add_single_card.html", {"add_form": add_form, "this_deck": this_deck})
 
+
+@login_required
+def remove_single_card(request, pk):
+    this_card = get_object_or_404(CardInstance, pk=pk)
+    this_deck = this_card.deck
+    this_card.delete()
+    messages.error(request, "Revmoed {0} From {1}".format(this_card, this_deck), extra_tags="alert")
+    return redirect("deck", this_deck.id)   

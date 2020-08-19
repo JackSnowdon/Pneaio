@@ -17,8 +17,37 @@
 
 <section class="deck-cards">
     <div class="row text-center">
+        <div class="col-12 mb-3">
+            <a href="{% url 'add_single_card' this_deck.id %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Add Card</a>
+            <p>Deck Size {{ this_deck.cards.all.count }}/{{ this_deck.size }}</p>
+        </div>
         <div class="col-12">
-            <a href="{% url 'add_single_card' this_deck.id %}" role="button" class="btn btn-success" aria-disabled="false">Add Card</a>
+            <table class="table table-hover card-deck-table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID:</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Level</th>
+                        <th scope="col">Atk</th>
+                        <th scope="col">Def</th>
+                        <th scope="col">Spd</th>
+                        <th scope="col">Rmv</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for card in this_deck.cards.all %}
+                    <tr>
+                        <th scope="row">{{ card.card.pk }}</th>
+                        <td>{{ card.card.name }}</td>
+                        <td>{{ card.card.level }}<i class="fas fa-star star-chip"></i></td>
+                        <td>{{ card.card.attack }}</td>
+                        <td>{{ card.card.defense }}</td>
+                        <td>{{ card.card.speed }}</td>
+                        <td><a href="{% url 'remove_single_card' card.id %}" class="card-links card-delete" onclick="return confirm('Are you sure you to remove {{ card.card.name }}?');"><i class="fas fa-trash-alt"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 </section>
