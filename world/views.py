@@ -110,3 +110,17 @@ def create_deck(request):
     else:
         deck_form = NewDeckForm()
     return render(request, "create_deck.html", {"deck_form": deck_form})
+
+
+@login_required
+def delete_deck(request, pk):
+    this_deck = get_object_or_404(Deck, pk=pk)
+    if this_deck.owned_by == request.user.profile:
+        this_deck.delete()
+        messages.error(
+            request, f"Deleted {this_deck}", extra_tags="alert"
+        )
+        return redirect(reverse("world_index"))
+    else:
+        messages.error(request, f"Deck Not Yours To Delete", extra_tags="alert")
+        return redirect("world_index")
