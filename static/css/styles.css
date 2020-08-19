@@ -103,9 +103,19 @@
 
 /* Decks */
 
-.deck-list-item {
+.single-deck {
     font-size: 21px;
     font-weight: 700;
+    transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    color: black;
+}
+
+.single-deck:hover {
+    color: #0189d8;
+    text-decoration: none;
 }
 
 

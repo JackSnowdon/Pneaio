@@ -13,3 +13,10 @@ class NewDeckForm(forms.ModelForm):
     class Meta:
         model = Deck
         fields = ['name']
+
+
+class AddCardToDeck(forms.ModelForm):
+
+    class Meta:
+        model = CardInstance
+        fields = ['card']

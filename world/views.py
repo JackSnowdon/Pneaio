@@ -124,3 +124,26 @@ def delete_deck(request, pk):
     else:
         messages.error(request, f"Deck Not Yours To Delete", extra_tags="alert")
         return redirect("world_index")
+
+
+@login_required
+def deck(request, pk):
+    this_deck = get_object_or_404(Deck, pk=pk)
+    return render(request, "deck.html", {"this_deck": this_deck})
+
+
+@login_required
+def add_single_card(request, pk):
+    this_deck = get_object_or_404(Deck, pk=pk)
+    if request.method == "POST":
+        add_form = AddCardToDeck(request.POST)
+        if add_form.is_valid():
+            form = add_form.save(commit=False)
+            form.deck = this_deck
+            form.save()
+            messages.error(request, "Added {0} To {1}".format(form.card.name, this_deck), extra_tags="alert")
+            return redirect("deck", this_deck.id)    
+    else:
+        add_form = AddCardToDeck()
+    return render(request, "add_single_card.html", {"add_form": add_form, "this_deck": this_deck})
+

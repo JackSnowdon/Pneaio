@@ -10,4 +10,6 @@ urlpatterns = [
     path(r'delete_card/<int:pk>', delete_card, name="delete_card"),
     path('create_deck/', create_deck, name="create_deck"),
     path(r'delete_deck/<int:pk>', delete_deck, name="delete_deck"),
+    path(r'deck/<int:pk>', deck, name="deck"),
+    path(r'add_single_card/<int:pk>', add_single_card, name="add_single_card"),
 ]

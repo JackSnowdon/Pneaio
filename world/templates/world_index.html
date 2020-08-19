@@ -14,7 +14,9 @@
             <a href="{% url 'create_deck' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Create Deck</a>
             <h4>Your Decks:</h4>
             {% for deck in decks %}
-            <p class="deck-list-item mb-0">- {{ deck.name }} <a href="{% url 'delete_deck' deck.id %}" class="card-links card-delete" onclick="return confirm('Are you sure you to delete {{ deck }}?');"><i class="fas fa-trash-alt"></i></a></p>
+            <p class="mb-0">- <a href="{% url 'deck' deck.id %}" class="card-links single-deck">{{ deck.name }}</a>
+                <a href="{% url 'delete_deck' deck.id %}" class="card-links card-delete" onclick="return confirm('Are you sure you to delete {{ deck }}?');"><i class="fas fa-trash-alt"></i></a>
+            </p>
             {% endfor %}
         </div>
         <div class="col-4">

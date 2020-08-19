@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %} {% block page_title %} PNEAIO | {{ deck }} {% endblock %} {% block content %}
+
+<section class="button-nav">
+    <div class="row mb-5">
+        <div class="col-12">
+            <a href="{% url 'world_index' %}" role="button" class="btn btn-warning" aria-disabled="false">Back</a>
+        </div>
+    </div>
+</section>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h3>{{ this_deck }}</h3>
+        <p>Owned By: {{ this_deck.owned_by }}</p>
+    </div>
+</div>
+
+<section class="deck-cards">
+    <div class="row text-center">
+        <div class="col-12">
+            <a href="{% url 'add_single_card' this_deck.id %}" role="button" class="btn btn-success" aria-disabled="false">Add Card</a>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
