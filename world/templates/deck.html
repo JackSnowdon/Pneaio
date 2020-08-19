@@ -18,13 +18,9 @@
 <section class="deck-cards">
     <div class="row text-center">
         <div class="col-12 mb-3">
-<<<<<<< HEAD
             {% if this_deck.cards.all.count >= this_deck.size %}
             <button class="btn btn-success mb-2" disabled>Add Card</button> {% else %}
             <a href="{% url 'add_single_card' this_deck.id %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Add Card</a> {% endif %}
-=======
-            <a href="{% url 'add_single_card' this_deck.id %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Add Card</a>
->>>>>>> 64de063b6805506725eb498c494553fd42079f21
             <p>Deck Size {{ this_deck.cards.all.count }}/{{ this_deck.size }}</p>
         </div>
         <div class="col-12">
@@ -41,11 +37,7 @@
                     </tr>
                 </thead>
                 <tbody>
-<<<<<<< HEAD
                     {% for card in card_order %}
-=======
-                    {% for card in this_deck.cards.all %}
->>>>>>> 64de063b6805506725eb498c494553fd42079f21
                     <tr>
                         <th scope="row">{{ card.card.pk }}</th>
                         <td>{{ card.card.name }}</td>
