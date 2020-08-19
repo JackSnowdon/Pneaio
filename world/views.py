@@ -157,5 +157,9 @@ def remove_single_card(request, pk):
     this_card = get_object_or_404(CardInstance, pk=pk)
     this_deck = this_card.deck
     this_card.delete()
+<<<<<<< HEAD
     messages.error(request, f"Revmoed {this_card} From {this_deck}", extra_tags="alert")
+=======
+    messages.error(request, "Revmoed {0} From {1}".format(this_card, this_deck), extra_tags="alert")
+>>>>>>> 64de063b6805506725eb498c494553fd42079f21
     return redirect("deck", this_deck.id)   
