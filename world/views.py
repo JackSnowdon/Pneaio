@@ -136,13 +136,21 @@ def deck(request, pk):
 @login_required
 def add_single_card(request, pk):
     this_deck = get_object_or_404(Deck, pk=pk)
-    if this_deck.cards.all().count() >= this_deck.size:
+    cards = this_deck.cards.all()
+    if cards.count() >= this_deck.size:
         messages.error(request, f"{this_deck} Has {this_deck.size} Cards Already", extra_tags="alert")
         return redirect("deck", this_deck.id)
     if request.method == "POST":
         add_form = AddCardToDeck(request.POST)
         if add_form.is_valid():
             form = add_form.save(commit=False)
+            card_count = 0
+            for card in cards:
+                if card.card.id == form.card.id:
+                    card_count += 1
+                    if card_count == 3:
+                        messages.error(request, f"{this_deck} Has 3 {form.card.name} Cards Already", extra_tags="alert")
+                        return redirect("add_single_card", this_deck.id)
             form.deck = this_deck
             form.save()
             messages.error(request, f"Added {form.card.name} To {this_deck}", extra_tags="alert")
@@ -157,9 +165,5 @@ def remove_single_card(request, pk):
     this_card = get_object_or_404(CardInstance, pk=pk)
     this_deck = this_card.deck
     this_card.delete()
-<<<<<<< HEAD
     messages.error(request, f"Revmoed {this_card} From {this_deck}", extra_tags="alert")
-=======
-    messages.error(request, "Revmoed {0} From {1}".format(this_card, this_deck), extra_tags="alert")
->>>>>>> 64de063b6805506725eb498c494553fd42079f21
     return redirect("deck", this_deck.id)   

@@ -16,6 +16,15 @@ class Card(models.Model):
         return self.name
 
 
+class HomeBase(models.Model):
+    name = models.CharField(max_length=255)
+    wins = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(1000000)], default=0)
+    linked = models.OneToOneField(Profile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
 class Deck(models.Model):
     name = models.CharField(max_length=255)
     size = models.PositiveIntegerField(validators=[MinValueValidator(20), MaxValueValidator(100)], default=20)
