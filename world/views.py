@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from .models import *
 from .forms import *
 
@@ -11,9 +12,13 @@ from .forms import *
 def world_index(request):
     profile = request.user.profile
     cards = Card.objects.filter(created_by=profile).order_by('-id')[:5]
-    decks = Deck.objects.filter(owned_by=profile).order_by('-id')[:5]
-    return render(request, "world_index.html", {"cards": cards, "decks": decks, "profile": profile})
-
+    try:
+        base = profile.base
+    except ObjectDoesNotExist:
+        return render(request, "world_index.html", {"cards": cards, "profile": profile})
+    else:
+        decks = Deck.objects.filter(owned_by=base).order_by('-id')[:5]
+        return render(request, "world_index.html", {"cards": cards, "decks": decks, "profile": profile})
 
 # Cards
 
@@ -104,7 +109,7 @@ def create_deck(request):
         deck_form = NewDeckForm(request.POST)
         if deck_form.is_valid():
             form = deck_form.save(commit=False)
-            form.owned_by = request.user.profile
+            form.owned_by = request.user.profile.base
             form.save()
             messages.error(request, "Created {0}".format(form.name), extra_tags="alert")
             return redirect("world_index")    
@@ -116,7 +121,7 @@ def create_deck(request):
 @login_required
 def delete_deck(request, pk):
     this_deck = get_object_or_404(Deck, pk=pk)
-    if this_deck.owned_by == request.user.profile:
+    if this_deck.owned_by == request.user.profile.base:
         this_deck.delete()
         messages.error(
             request, f"Deleted {this_deck}", extra_tags="alert"

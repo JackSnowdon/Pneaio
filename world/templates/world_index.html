@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-4 col-12 mb-5">
             {% if profile.base %}
-            <h4>Your Decks:</h4>
+            <h4 class="text-center">Your Decks:</h4>
             <a href="{% url 'create_deck' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Create Deck</a> {% for deck in decks %}
             <p class="mb-0">- <a href="{% url 'deck' deck.id %}" class="card-links single-deck">{{ deck.name }}</a>
                 <a href="{% url 'delete_deck' deck.id %}" class="card-links card-delete" onclick="return confirm('Are you sure you to delete {{ deck }}?');"><i class="fas fa-trash-alt"></i></a>
@@ -30,8 +30,9 @@
             {% endfor %} {% endif %}
         </div>
         <div class="col-md-4 col-12 mb-5">
-            <h4>Your Last 5 Cards:</h4>
+            <h4 class="text-center">Your Last 5 Cards:</h4>
             <a href="{% url 'create_card' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Create Card</a>
+            <a href="{% url 'view_all_cards' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">All Cards</a>
             <ul>
                 {% for card in cards %}
                 <li><a href="{% url 'view_card' card.id %}" class="card-links single-card">{{ card.name }}</a> <span class="small">{{ card.level }}<i class="fas fa-star star-chip"></i></span>
@@ -40,7 +41,7 @@
                 </li>
                 {% endfor %}
             </ul>
-            <a href="{% url 'view_all_cards' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">All Cards</a>
+
         </div>
     </div>
 </section>

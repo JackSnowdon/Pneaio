@@ -28,7 +28,7 @@ class Base(models.Model):
 class Deck(models.Model):
     name = models.CharField(max_length=255)
     size = models.PositiveIntegerField(validators=[MinValueValidator(20), MaxValueValidator(100)], default=20)
-    owned_by = models.ForeignKey(Profile, related_name='decks', on_delete=models.CASCADE)
+    owned_by = models.ForeignKey(Base, related_name='decks', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

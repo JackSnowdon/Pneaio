@@ -23,7 +23,8 @@
             <h4>Cards:</h4>
             <ul>
                 {% for card in cards %}
-                <li><a href="{% url 'view_card' card.id %}" class="card-links single-card">{{ card.name }}</a> <span class="small">level {{ card.level }}</span><a href="{% url 'edit_card' card.id %}" class="card-links card-edit"><i class="far fa-edit"></i></a>
+                <li><a href="{% url 'view_card' card.id %}" class="card-links single-card">{{ card.name }}</a> <span class="small">{{ card.level }}<i class="fas fa-star star-chip"></i></span>
+                    <a href="{% url 'edit_card' card.id %}" class="card-links card-edit"><i class="far fa-edit"></i></a>
                     <a href="{% url 'delete_card' card.id %}" class="card-links card-delete" onclick="return confirm('Are you sure you to delete {{ card }}?');"><i class="fas fa-trash-alt"></i></a>
                 </li>
                 {% endfor %}
