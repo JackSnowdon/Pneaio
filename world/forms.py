@@ -20,3 +20,10 @@ class AddCardToDeck(forms.ModelForm):
     class Meta:
         model = CardInstance
         fields = ['card']
+
+
+class NewBase(forms.ModelForm):
+
+    class Meta:
+        model = Base
+        fields = ['name'] 

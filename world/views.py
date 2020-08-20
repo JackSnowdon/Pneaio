@@ -6,15 +6,16 @@ from .forms import *
 
 # Create your views here.
 
-# Cards
-
 
 @login_required
 def world_index(request):
     profile = request.user.profile
     cards = Card.objects.filter(created_by=profile).order_by('-id')[:5]
     decks = Deck.objects.filter(owned_by=profile).order_by('-id')[:5]
-    return render(request, "world_index.html", {"cards": cards, "decks": decks})
+    return render(request, "world_index.html", {"cards": cards, "decks": decks, "profile": profile})
+
+
+# Cards
 
 
 @login_required
@@ -166,4 +167,21 @@ def remove_single_card(request, pk):
     this_deck = this_card.deck
     this_card.delete()
     messages.error(request, f"Revmoed {this_card} From {this_deck}", extra_tags="alert")
-    return redirect("deck", this_deck.id)   
+    return redirect("deck", this_deck.id)
+
+# Home Base
+
+@login_required
+def create_base(request):
+    if request.method == "POST":
+        base_form = NewBase(request.POST)
+        if base_form.is_valid():
+            form = base_form.save(commit=False)
+            form.linked = request.user.profile
+            form.save()
+            messages.error(request, "New Base Created: {0}".format(form.name), extra_tags="alert")
+            return redirect("world_index")    
+    else:
+        base_form = NewBase()
+    return render(request, "create_base.html", {"base_form": base_form})
+

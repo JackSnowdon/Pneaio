@@ -16,7 +16,7 @@ class Card(models.Model):
         return self.name
 
 
-class HomeBase(models.Model):
+class Base(models.Model):
     name = models.CharField(max_length=255)
     wins = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(1000000)], default=0)
     linked = models.OneToOneField(Profile, on_delete=models.CASCADE)
