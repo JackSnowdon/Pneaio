@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %} {% block page_title %} PNEAIO | Rename {{ this_base }} {% endblock %} {% block content %}
+
+<section class="button-nav">
+    <div class="row mb-5">
+        <div class="col-12">
+            <a href="{% url 'world_index' %}" role="button" class="btn btn-warning" aria-disabled="false">Back</a>
+        </div>
+    </div>
+</section>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h1>Renaming {{ this_base }}</h1>
+    </div>
+</div>
+
+<form role="form" method="post" id="rename_base_form">
+    <div class="form-group">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group offset-md-2 col-md-8 mb-0">
+                {{ base_form.name|as_crispy_field }}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12 text-center">
+                <input class="btn btn-success" id="rename_base" name="commit" type="submit" value="Rename">
+            </div>
+        </div>
+        <br>
+    </div>
+</form>
+
+{% endblock %}

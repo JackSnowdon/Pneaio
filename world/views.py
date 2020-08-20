@@ -185,3 +185,38 @@ def create_base(request):
         base_form = NewBase()
     return render(request, "create_base.html", {"base_form": base_form})
 
+
+@login_required
+def rename_base(request, pk):
+    this_base = get_object_or_404(Base, pk=pk)
+    profile = request.user.profile
+    if profile == this_base.linked or profile.staff_access:
+        if request.method == "POST":
+            base_form = NewBase(request.POST, instance=this_base)
+            if base_form.is_valid():
+                form = base_form.save(commit=False)
+                form.save()
+                messages.error(request, "Renamed {0}".format(form.name), extra_tags="alert")
+                return redirect("world_index")      
+        else:
+            base_form = NewBase(instance=this_base)
+        return render(request, "rename_base.html", {"base_form": base_form, "this_base": this_base})
+    else:
+        messages.error(
+            request, "You Don't Have The Required Permissions", extra_tags="alert"
+        )
+        return redirect("world_index")
+
+
+@login_required
+def delete_base(request, pk):
+    this_base = get_object_or_404(Base, pk=pk)
+    if this_base.linked == request.user.profile or profile.staff_access:
+        this_base.delete()
+        messages.error(
+            request, f"Deleted {this_base}", extra_tags="alert"
+        )
+        return redirect(reverse("world_index"))
+    else:
+        messages.error(request, f"Deck Not Yours To Delete", extra_tags="alert")
+        return redirect("world_index")

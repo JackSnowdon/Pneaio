@@ -48,10 +48,10 @@
 
 .card-links {
     font-size: 14px;
-    transition: all 0.15s ease-in-out;
-    -moz-transition: all 0.15s ease-in-out;
-    -webkit-transition: all 0.15s ease-in-out;
-    -o-transition: all 0.15s ease-in-out;
+    transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
 }
 
 .single-card {
@@ -106,10 +106,10 @@
 .single-deck {
     font-size: 21px;
     font-weight: 700;
-    transition: all 0.25s ease-in-out;
-    -moz-transition: all 0.25s ease-in-out;
-    -webkit-transition: all 0.25s ease-in-out;
-    -o-transition: all 0.25s ease-in-out;
+    transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
     color: black;
 }
 
@@ -120,6 +120,18 @@
 
 .card-deck-table {
     background-color: #d1eff3;
+}
+
+
+/* Base */
+
+.base-tools a {
+    transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
+    display: inline-block;
+    width: 30px;
 }
 
 

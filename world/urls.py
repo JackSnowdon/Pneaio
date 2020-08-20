@@ -14,4 +14,6 @@ urlpatterns = [
     path(r'add_single_card/<int:pk>', add_single_card, name="add_single_card"),
     path(r'remove_single_card/<int:pk>', remove_single_card, name="remove_single_card"),
     path('create_base/', create_base, name="create_base"),
+    path(r'rename_base/<int:pk>', rename_base, name="rename_base"),
+    path(r'delete_base/<int:pk>', delete_base, name="delete_base"),
 ]

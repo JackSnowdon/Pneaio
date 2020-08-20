@@ -12,23 +12,26 @@
     <div class="row">
         <div class="col-md-4 col-12 text-center mb-5">
             {% if profile.base %}
-            <h5>{{ profile.base }}</h5>
+            <h4>{{ profile.base }}</h4>
+            <div class="base-tools">
+                <a href="{% url 'rename_base' profile.base.id %}" class="card-edit"><i class="fas fa-pencil-alt"></i></a>
+                <a href="{% url 'delete_base' profile.base.id %}" class="card-delete"><i class="fas fa-trash-alt"></i></a>
+            </div>
             {% else %}
             <a href="{% url 'create_base' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Start Base</a> {% endif %}
         </div>
         <div class="col-md-4 col-12 mb-5">
             {% if profile.base %}
-            <a href="{% url 'create_deck' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Create Deck</a>
             <h4>Your Decks:</h4>
-            {% for deck in decks %}
+            <a href="{% url 'create_deck' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Create Deck</a> {% for deck in decks %}
             <p class="mb-0">- <a href="{% url 'deck' deck.id %}" class="card-links single-deck">{{ deck.name }}</a>
                 <a href="{% url 'delete_deck' deck.id %}" class="card-links card-delete" onclick="return confirm('Are you sure you to delete {{ deck }}?');"><i class="fas fa-trash-alt"></i></a>
             </p>
             {% endfor %} {% endif %}
         </div>
         <div class="col-md-4 col-12 mb-5">
-            <a href="{% url 'create_card' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Create Card</a>
             <h4>Your Last 5 Cards:</h4>
+            <a href="{% url 'create_card' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Create Card</a>
             <ul>
                 {% for card in cards %}
                 <li><a href="{% url 'view_card' card.id %}" class="card-links single-card">{{ card.name }}</a> <span class="small">{{ card.level }}<i class="fas fa-star star-chip"></i></span>
