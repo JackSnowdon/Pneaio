@@ -25,6 +25,14 @@ class Base(models.Model):
         return self.name
 
 
+class OwnedCard(models.Model):
+    card = models.ForeignKey(Card, related_name='cards', on_delete=models.CASCADE)
+    base = models.ForeignKey(Base, related_name='library', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
 class Deck(models.Model):
     name = models.CharField(max_length=255)
     size = models.PositiveIntegerField(validators=[MinValueValidator(20), MaxValueValidator(100)], default=20)
@@ -35,7 +43,7 @@ class Deck(models.Model):
 
 
 class CardInstance(models.Model):
-    card = models.ForeignKey(Card, related_name='indecks', on_delete=models.CASCADE)
+    card = models.ForeignKey(OwnedCard, related_name='indecks', on_delete=models.CASCADE)
     deck = models.ForeignKey(Deck, related_name='cards', on_delete=models.CASCADE)
 
     def __str__(self):

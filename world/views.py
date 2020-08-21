@@ -20,8 +20,8 @@ def world_index(request):
         decks = Deck.objects.filter(owned_by=base).order_by('-id')[:5]
         return render(request, "world_index.html", {"cards": cards, "decks": decks, "profile": profile})
 
-# Cards
 
+# Cards
 
 @login_required
 def create_card(request):
@@ -174,6 +174,7 @@ def remove_single_card(request, pk):
     messages.error(request, f"Revmoed {this_card} From {this_deck}", extra_tags="alert")
     return redirect("deck", this_deck.id)
 
+
 # Home Base
 
 @login_required
@@ -225,3 +226,4 @@ def delete_base(request, pk):
     else:
         messages.error(request, f"Deck Not Yours To Delete", extra_tags="alert")
         return redirect("world_index")
+
