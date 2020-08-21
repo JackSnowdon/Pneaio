@@ -26,4 +26,11 @@ class NewBase(forms.ModelForm):
 
     class Meta:
         model = Base
-        fields = ['name'] 
+        fields = ['name']
+
+
+class AddCardToBase(forms.ModelForm):
+
+    class Meta:
+        model = OwnedCard
+        fields = ['card']

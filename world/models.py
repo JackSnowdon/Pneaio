@@ -30,7 +30,7 @@ class OwnedCard(models.Model):
     base = models.ForeignKey(Base, related_name='library', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.card.name
 
 
 class Deck(models.Model):

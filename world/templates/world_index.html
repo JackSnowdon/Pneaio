@@ -11,17 +11,18 @@
 <section class="cards">
     <div class="row">
         <div class="col-md-4 col-12 text-center mb-5">
-            {% if profile.base %}
-            <h4>{{ profile.base }}</h4>
+            {% if base %}
+            <h4>{{ base }}</h4>
             <div class="base-tools">
-                <a href="{% url 'rename_base' profile.base.id %}" class="card-edit"><i class="fas fa-pencil-alt"></i></a>
-                <a href="{% url 'delete_base' profile.base.id %}" class="card-delete"><i class="fas fa-trash-alt"></i></a>
+                <a href="{% url 'rename_base' base.id %}" class="card-edit"><i class="fas fa-pencil-alt"></i></a>
+                <a href="{% url 'delete_base' base.id %}" class="card-delete"><i class="fas fa-trash-alt"></i></a>
             </div>
-            {% else %}
+            <a href="{% url 'buy_card' base.id %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Buy Card</a>
+            <p>Owned Cards: {{ base_cards }}</p>{% else %}
             <a href="{% url 'create_base' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Start Base</a> {% endif %}
         </div>
         <div class="col-md-4 col-12 mb-5">
-            {% if profile.base %}
+            {% if base %}
             <h4 class="text-center">Your Decks:</h4>
             <a href="{% url 'create_deck' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Create Deck</a> {% for deck in decks %}
             <p class="mb-0">- <a href="{% url 'deck' deck.id %}" class="card-links single-deck">{{ deck.name }}</a>

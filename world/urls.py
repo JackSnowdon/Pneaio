@@ -16,4 +16,5 @@ urlpatterns = [
     path('create_base/', create_base, name="create_base"),
     path(r'rename_base/<int:pk>', rename_base, name="rename_base"),
     path(r'delete_base/<int:pk>', delete_base, name="delete_base"),
+    path(r'buy_card/<int:pk>', buy_card, name="buy_card"),
 ]

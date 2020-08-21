@@ -18,7 +18,10 @@ def world_index(request):
         return render(request, "world_index.html", {"cards": cards, "profile": profile})
     else:
         decks = Deck.objects.filter(owned_by=base).order_by('-id')[:5]
-        return render(request, "world_index.html", {"cards": cards, "decks": decks, "profile": profile})
+        base_cards = base.library.all().count()
+        return render(request, "world_index.html", {"cards": cards, "decks": decks, 
+                                                    "profile": profile, "base": base, 
+                                                    "base_cards": base_cards })
 
 
 # Cards
@@ -159,7 +162,7 @@ def add_single_card(request, pk):
                         return redirect("add_single_card", this_deck.id)
             form.deck = this_deck
             form.save()
-            messages.error(request, f"Added {form.card.name} To {this_deck}", extra_tags="alert")
+            messages.error(request, f"Added {form.card.card.name} To {this_deck}", extra_tags="alert")
             return redirect("deck", this_deck.id)    
     else:
         add_form = AddCardToDeck()
@@ -171,7 +174,7 @@ def remove_single_card(request, pk):
     this_card = get_object_or_404(CardInstance, pk=pk)
     this_deck = this_card.deck
     this_card.delete()
-    messages.error(request, f"Revmoed {this_card} From {this_deck}", extra_tags="alert")
+    messages.error(request, f"Revmoed {this_card.card.name} From {this_deck}", extra_tags="alert")
     return redirect("deck", this_deck.id)
 
 
@@ -225,5 +228,28 @@ def delete_base(request, pk):
         return redirect(reverse("world_index"))
     else:
         messages.error(request, f"Deck Not Yours To Delete", extra_tags="alert")
+        return redirect("world_index")
+
+
+@login_required
+def buy_card(request, pk):
+    this_base = get_object_or_404(Base, pk=pk)
+    profile = request.user.profile
+    if this_base.linked == request.user.profile or profile.staff_access:
+        if request.method == "POST":
+            card_form = AddCardToBase(request.POST)
+            if card_form.is_valid():
+                form = card_form.save(commit=False)
+                form.base = this_base
+                form.save()
+                messages.error(request, f"{this_base} Brought {form.card.name}", extra_tags="alert")
+                return redirect("world_index")      
+        else:
+            card_form = AddCardToBase()
+        return render(request, "buy_card.html", {"card_form": card_form, "this_base": this_base})
+    else:
+        messages.error(
+            request, "You Don't Have The Required Permissions", extra_tags="alert"
+        )
         return redirect("world_index")
 
