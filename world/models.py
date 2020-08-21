@@ -26,7 +26,7 @@ class Base(models.Model):
 
 
 class OwnedCard(models.Model):
-    card = models.ForeignKey(Card, related_name='cards', on_delete=models.CASCADE)
+    card = models.ForeignKey(Card, related_name='owners', on_delete=models.CASCADE)
     base = models.ForeignKey(Base, related_name='library', on_delete=models.CASCADE)
 
     def __str__(self):

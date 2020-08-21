@@ -39,13 +39,13 @@
                 <tbody>
                     {% for card in card_order %}
                     <tr>
-                        <th scope="row">{{ card.card.pk }}</th>
-                        <td>{{ card.card.name }}</td>
-                        <td>{{ card.card.level }}<i class="fas fa-star star-chip"></i></td>
-                        <td>{{ card.card.attack }}</td>
-                        <td>{{ card.card.defense }}</td>
-                        <td>{{ card.card.speed }}</td>
-                        <td><a href="{% url 'remove_single_card' card.id %}" class="card-links card-delete" onclick="return confirm('Are you sure you to remove {{ card.card.name }}?');"><i class="fas fa-trash-alt"></i></a></td>
+                        <th scope="row">{{ card.card.card.pk }}</th>
+                        <td>{{ card.card.card.name }}</td>
+                        <td>{{ card.card.card.level }}<i class="fas fa-star star-chip"></i></td>
+                        <td>{{ card.card.card.attack }}</td>
+                        <td>{{ card.card.card.defense }}</td>
+                        <td>{{ card.card.card.speed }}</td>
+                        <td><a href="{% url 'remove_single_card' card.id %}" class="card-links card-delete" onclick="return confirm('Are you sure you to remove {{ card.card.card.name }}?');"><i class="fas fa-trash-alt"></i></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

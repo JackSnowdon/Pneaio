@@ -158,7 +158,7 @@ def add_single_card(request, pk):
                 if card.card.id == form.card.id:
                     card_count += 1
                     if card_count == 3:
-                        messages.error(request, f"{this_deck} Has 3 {form.card.name} Cards Already", extra_tags="alert")
+                        messages.error(request, f"{this_deck} Has 3 {form.card.card.name} Cards Already", extra_tags="alert")
                         return redirect("add_single_card", this_deck.id)
             form.deck = this_deck
             form.save()
@@ -174,7 +174,7 @@ def remove_single_card(request, pk):
     this_card = get_object_or_404(CardInstance, pk=pk)
     this_deck = this_card.deck
     this_card.delete()
-    messages.error(request, f"Revmoed {this_card.card.name} From {this_deck}", extra_tags="alert")
+    messages.error(request, f"Revmoed {this_card.card.card.name} From {this_deck}", extra_tags="alert")
     return redirect("deck", this_deck.id)
 
 
@@ -243,7 +243,7 @@ def buy_card(request, pk):
                 form.base = this_base
                 form.save()
                 messages.error(request, f"{this_base} Brought {form.card.name}", extra_tags="alert")
-                return redirect("world_index")      
+                return redirect("base_library", this_base.pk)      
         else:
             card_form = AddCardToBase()
         return render(request, "buy_card.html", {"card_form": card_form, "this_base": this_base})
@@ -252,4 +252,34 @@ def buy_card(request, pk):
             request, "You Don't Have The Required Permissions", extra_tags="alert"
         )
         return redirect("world_index")
+
+
+@login_required
+def base_library(request, pk):
+    this_base = get_object_or_404(Base, pk=pk)
+    base_cards = this_base.library.all()
+    if this_base.linked == request.user.profile or profile.staff_access:
+        return render(request, "base_library.html", {"base_cards": base_cards, "this_base": this_base})
+    else:
+        messages.error(
+            request, "You Don't Have The Required Permissions", extra_tags="alert"
+        )
+        return redirect("world_index")
+
+
+@login_required
+def sell_card(request, pk):
+    this_card = get_object_or_404(OwnedCard, pk=pk)
+    base = this_card.base
+    profile = request.user.profile
+    if this_card.base.linked == request.user.profile or profile.staff_access:
+        this_card.delete()
+        messages.error(
+            request, f"Sold {this_card.card.name}", extra_tags="alert"
+        )
+        return redirect("base_library", base.pk)
+    else:
+        messages.error(request, f"Deck Not Yours To Sell", extra_tags="alert")
+        return redirect("world_index")
+
 

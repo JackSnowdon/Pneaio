@@ -1,0 +1,57 @@
+{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %} {% block page_title %} PNEAIO | {{ this_base }} {% endblock %} {% block content %}
+
+<section class="button-nav">
+    <div class="row mb-5">
+        <div class="col-12">
+            <a href="{% url 'world_index' %}" role="button" class="btn btn-warning" aria-disabled="false">Back</a>
+        </div>
+    </div>
+</section>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h3>{{ this_base }}</h3>
+        <a href="{% url 'buy_card' this_base.id %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Buy Card</a>
+    </div>
+</div>
+
+<section class="base-cards">
+    <div class="row text-center">
+        <div class="col-12 mb-3">
+            <p>Cards Owned: {{ base_cards.count }}</p>
+        </div>
+        <div class="col-12">
+            <table class="table table-hover card-deck-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Card ID:</th>
+                        <th scope="col">Library ID:</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Level</th>
+                        <th scope="col">Atk</th>
+                        <th scope="col">Def</th>
+                        <th scope="col">Spd</th>
+                        <th scope="col">Rmv</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for card in base_cards %}
+                    <tr>
+                        <th scope="row">{{ card.card.pk }}</th>
+                        <td>{{ card.pk }}</td>
+                        <td>{{ card.card.name }}</td>
+                        <td>{{ card.card.level }}<i class="fas fa-star star-chip"></i></td>
+                        <td>{{ card.card.attack }}</td>
+                        <td>{{ card.card.defense }}</td>
+                        <td>{{ card.card.speed }}</td>
+                        <td><a href="{% url 'sell_card' card.id %}" class="card-links card-delete" onclick="return confirm('Are you sure you to remove {{ card.card.name }}?');"><i class="fas fa-trash-alt"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

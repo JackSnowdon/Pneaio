@@ -17,8 +17,7 @@
                 <a href="{% url 'rename_base' base.id %}" class="card-edit"><i class="fas fa-pencil-alt"></i></a>
                 <a href="{% url 'delete_base' base.id %}" class="card-delete"><i class="fas fa-trash-alt"></i></a>
             </div>
-            <a href="{% url 'buy_card' base.id %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Buy Card</a>
-            <p>Owned Cards: {{ base_cards }}</p>{% else %}
+            <p><a href="{% url 'base_library' base.id %}" class="card-links single-card">Owned Cards: {{ base_cards }}</a></p>{% else %}
             <a href="{% url 'create_base' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Start Base</a> {% endif %}
         </div>
         <div class="col-md-4 col-12 mb-5">

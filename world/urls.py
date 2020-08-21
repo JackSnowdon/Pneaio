@@ -17,4 +17,6 @@ urlpatterns = [
     path(r'rename_base/<int:pk>', rename_base, name="rename_base"),
     path(r'delete_base/<int:pk>', delete_base, name="delete_base"),
     path(r'buy_card/<int:pk>', buy_card, name="buy_card"),
+    path(r'base_library/<int:pk>', base_library, name="base_library"),
+    path(r'sell_card/<int:pk>', sell_card, name="sell_card"),
 ]
