@@ -153,17 +153,20 @@ def add_single_card(request, pk):
         add_form = AddCardToDeck(request.POST)
         if add_form.is_valid():
             form = add_form.save(commit=False)
-            card_count = 0
-            for card in cards:
-                if card.card.id == form.card.id:
-                    card_count += 1
-                    if card_count == 3:
-                        messages.error(request, f"{this_deck} Has 3 {form.card.card.name} Cards Already", extra_tags="alert")
-                        return redirect("add_single_card", this_deck.id)
-            form.deck = this_deck
-            form.save()
-            messages.error(request, f"Added {form.card.card.name} To {this_deck}", extra_tags="alert")
-            return redirect("deck", this_deck.id)    
+            if card_in_deck_checker(form.card, this_deck, cards) == True:
+                card_count = 0
+                for card in cards:
+                    if card.card.card.id == form.card.card.id:
+                        card_count += 1
+                        if card_count == 3:
+                            messages.error(request, f"{this_deck} Has 3 {form.card.card.name} Cards Already", extra_tags="alert")
+                            return redirect("add_single_card", this_deck.id)
+                form.deck = this_deck
+                form.save()
+                messages.error(request, f"Added {form.card.card.name} To {this_deck}", extra_tags="alert")
+                return redirect("deck", this_deck.id)
+            else:
+                messages.error(request, f"{this_deck} Already Has {form.card.card.name} Library ID: {form.card.id} In The Deck", extra_tags="alert")
     else:
         add_form = AddCardToDeck()
     return render(request, "add_single_card.html", {"add_form": add_form, "this_deck": this_deck})
@@ -176,6 +179,18 @@ def remove_single_card(request, pk):
     this_card.delete()
     messages.error(request, f"Revmoed {this_card.card.card.name} From {this_deck}", extra_tags="alert")
     return redirect("deck", this_deck.id)
+
+
+# Deck Helpers 
+
+
+def card_in_deck_checker(card, deck, deckcards):
+    owned_cards = deck.owned_by.library.all()
+    for c in deckcards:
+        if card.id == c.card.id:
+            return False
+    else:
+        return True
 
 
 # Home Base
@@ -257,7 +272,7 @@ def buy_card(request, pk):
 @login_required
 def base_library(request, pk):
     this_base = get_object_or_404(Base, pk=pk)
-    base_cards = this_base.library.all()
+    base_cards = this_base.library.all().order_by('-id')
     if this_base.linked == request.user.profile or profile.staff_access:
         return render(request, "base_library.html", {"base_cards": base_cards, "this_base": this_base})
     else:

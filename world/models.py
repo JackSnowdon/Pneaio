@@ -47,4 +47,4 @@ class CardInstance(models.Model):
     deck = models.ForeignKey(Deck, related_name='cards', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.card.name
+        return self.card.card.name
